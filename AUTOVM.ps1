@@ -7,28 +7,24 @@
 #PS Version...: 
 #Acknowledgment: Microsoft Docs
 
-#Variables
 $VMName = read-host -Promt 'What is the name for this VM?'
 $VMRAM = read-host -Promt 'What is the memory allocation for this VM (In Gb eg 1)?'
-$BIG = 1073741824
-$VMRAMGB = $BIG*$VMRAM
-$VHDSIZE = read-host -Prompt 'What is the VHD size (In Gb)'
-$VHDSIZEGB = $BIG*$VHDSIZE
+$VHDSIZE = read-host -Prompt 'What is the VHD size (In Gb)
+$OSAV =@(
+'Windows Server 2012'
+'Windows Server 2016'
+'Windows 10'
+'Centos7'
+'Ubuntu Server'
+)
+$OSAV
+$OS = read-host -Promt 'Which OS would you like installed ? ' 
 
-#VM variable Info cluster
- $VM = @{
-     Name = $VMName
-     MemoryStartupBytes = $VMRAMGB
-     Generation = 2
-     NewVHDPath = "C:\Virtual Machines\$VMName\$VMName.vhdx"
-     NewVHDSizeBytes = $VHDSIZEGB
-     BootDevice = "VHD"
-     Path = "C:\Virtual Machines\$VMName"
-     SwitchName = (Get-VMSwitch).Name
- }
- 
- echo "'$VM @'"
+#VM array
+$VM = @{ Name = $VMName MemoryStartupBytes = "'$VMRAM'Gb"
+ Generation = 2 
+NewVHDPath = "C:\Virtual Machines\$VMName\$VMName.vhdx" NewVHDSizeBytes = "'$VHDSIZE'Gb"
+BootDevice = "VHD" Path = "C:\Virtual Machines\$VMName" 
+SwitchName = (Get-VMSwitch).Name } 
 
- Read-host -promt "Is this VM details correct ?"
-
- 
+echo "'$VM @'" Read-host -promt "Is this VM details correct ?"
