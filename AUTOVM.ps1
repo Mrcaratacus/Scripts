@@ -4,7 +4,7 @@
 #Date.........: 13/06/2019
 #Version......: 0.0
 #Usage........: ps */AUTOVM.ps1
-#PS Version...: 
+#PS Version...: 4.0> 
 #Acknowledgment: Microsoft Docs
 
 $VMName = read-host -Promt 'What is the name for this VM?'
@@ -20,11 +20,22 @@ $OSAV =@(
 $OSAV
 $OS = read-host -Promt 'Which OS would you like installed ? ' 
 
+Switch ('$OS') (
+
+Win2012 ($VDD =Win2012' ;Break)
+Win2016 ($VDD =Win2016' ;Break)
+Win10 ($VDD =Win10' ;Break)
+Centos7 ($VDD =Centos7' ;Break)
+UbuntuSer ($VDD =UbuntuSer' ;Break)
+)
+
 #VM array
-$VM = @{ Name = $VMName MemoryStartupBytes = "'$VMRAM'Gb"
- Generation = 2 
+$VM = @{ Name = $VMName 
+MemoryStartupBytes = "'$VMRAM'Gb"
+Generation = 2 
 NewVHDPath = "C:\Virtual Machines\$VMName\$VMName.vhdx" NewVHDSizeBytes = "'$VHDSIZE'Gb"
-BootDevice = "VHD" Path = "C:\Virtual Machines\$VMName" 
-SwitchName = (Get-VMSwitch).Name } 
+BootDevice = "CD" Path = "\ISO\'$VDD'.iso
+#SwitchName = (Get-VMSwitch).Name } 
+#NewDiscDrive =(Set-VMDvdDrive -VMName '$VMNAME' -Path \ISO\'$VDD".iso - AllowUnverifiedPaths )
 
 echo "'$VM @'" Read-host -promt "Is this VM details correct ?"
