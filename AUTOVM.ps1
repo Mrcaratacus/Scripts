@@ -9,7 +9,7 @@
 
 $VMName = read-host -Promt 'What is the name for this VM?'
 $VMRAM = read-host -Promt 'What is the memory allocation for this VM (In Gb eg 1)?'
-$VHDSIZE = read-host -Prompt 'What is the VHD size (In Gb)
+$VHDSIZE = read-host -Promt 'What is the VHD size (In Gb)
 $OSAV =@(
 'Windows Server 2012'
 'Windows Server 2016'
