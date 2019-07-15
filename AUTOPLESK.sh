@@ -33,6 +33,7 @@ echo -e
 #wget http://autoinstall.plesk.com/plesk-installer
 #chmod +x plesk-installer
 #./plesk-installer --all-versions
+sh <(curl https://autoinstall.plesk.com/one-click-installer || wget -O - https://autoinstall.plesk.com/one-click-installer)
 
 #Activation Information
 
