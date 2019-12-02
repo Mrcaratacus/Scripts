@@ -9,38 +9,38 @@ Created By - Joshua Hanscombe (Education Support Officer Ourimbah Campus)
 # Directory Creation
 
 cd "E:/Audit"
-New-Item -Name Audit -ItemType directory
+New-Item -Name Audit -ItemType directory | Out-Null
 cd "E:\Audit\Audit"
-New-Item -Name CERT1IT -ItemType directory
-New-Item -Name CERT3Net -ItemType directory
-New-Item -Name CERT3Web -ItemType directory
-New-Item -Name CERT4Net -ItemType directory
-New-Item -Name CERT4Web -ItemType directory
-New-Item -Name CERT4Prog -ItemType directory
+New-Item -Name CERT1IT -ItemType directory | Out-Null
+New-Item -Name CERT3Net -ItemType directory | Out-Null
+New-Item -Name CERT3Web -ItemType directory | Out-Null
+New-Item -Name CERT4Net -ItemType directory | Out-Null
+New-Item -Name CERT4Web -ItemType directory | Out-Null
+New-Item -Name CERT4Prog -ItemType directory | Out-Null
 cd "E:\Audit\Audit\CERT1IT"
-New-Item -Name Units -ItemType directory
-New-Item -Name Learners -ItemType directory
-New-Item -Name Other_Documents -ItemType directory
+New-Item -Name Units -ItemType directory | Out-Null
+New-Item -Name Learners -ItemType directory | Out-Null
+New-Item -Name Other_Documents -ItemType directory | Out-Null
 cd "E:\Audit\Audit\CERT3Net"
-New-Item -Name Units -ItemType directory
-New-Item -Name Learners -ItemType directory
-New-Item -Name Other_Documents -ItemType directory
+New-Item -Name Units -ItemType directory | Out-Null
+New-Item -Name Learners -ItemType directory | Out-Null
+New-Item -Name Other_Documents -ItemType directory | Out-Null
 cd "E:\Audit\Audit\CERT3Web"
-New-Item -Name Units -ItemType directory
-New-Item -Name Learners -ItemType directory
-New-Item -Name Other_Documents -ItemType directory
+New-Item -Name Units -ItemType directory | Out-Null
+New-Item -Name Learners -ItemType directory | Out-Null
+New-Item -Name Other_Documents -ItemType directory | Out-Null
 cd "E:\Audit\Audit\CERT4Net"
-New-Item -Name Units -ItemType directory
-New-Item -Name Learners -ItemType directory
-New-Item -Name Other_Documents -ItemType directory
+New-Item -Name Units -ItemType directory | Out-Null
+New-Item -Name Learners -ItemType directory | Out-Null
+New-Item -Name Other_Documents -ItemType directory | Out-Null
 cd "E:\Audit\Audit\CERT4Web"
-New-Item -Name Units -ItemType directory
-New-Item -Name Learners -ItemType directory
-New-Item -Name Other_Documents -ItemType directory
+New-Item -Name Units -ItemType directory | Out-Null
+New-Item -Name Learners -ItemType directory | Out-Null
+New-Item -Name Other_Documents -ItemType directory | Out-Null
 cd "E:\Audit\Audit\CERT4Prog"
-New-Item -Name Units -ItemType directory
-New-Item -Name Learners -ItemType directory
-New-Item -Name Other_Documents -ItemType directory
+New-Item -Name Units -ItemType directory | Out-Null
+New-Item -Name Learners -ItemType directory | Out-Null
+New-Item -Name Other_Documents -ItemType directory | Out-Null
 
 #LERNERS
 
@@ -51,7 +51,7 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 3
 $SN = 2
 $SC = 0
-echo $STUDNUM
+
 DO{
 $LN = (Get-Content 'E:\Audit\other\Cert1\CSV\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[0];} ) 
 $LLN = (Get-Content 'E:\Audit\other\Cert1\CSV\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[1];} )
@@ -60,7 +60,7 @@ $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
 $CFN = echo "$LLN-$LFN ($LN)"
-echo $CFN
+
 copy E:\Audit\other\LAC2019.xlsx E:\Audit\Audit\CERT1IT\Learners\$CFN.xlsx
 }until ($SC -eq $STUDNUM+1)
 
@@ -84,7 +84,7 @@ $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
 $CFN = echo "$LLN-$LFN ($LN)"
-echo $CFN
+
 copy E:\Audit\other\LAC2019.xlsx E:\Audit\Audit\CERT3Net\Learners\$CFN.xlsx
 }until ($SC -eq $STUDNUM+1)
 
@@ -99,7 +99,7 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 3
 $SN = 2
 $SC = 0
-echo $STUDNUM
+
 DO{
 $LN = (Get-Content 'E:\Audit\other\cert3web\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[0];} ) 
 $LLN = (Get-Content 'E:\Audit\other\cert3web\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[1];} )
@@ -108,7 +108,7 @@ $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
 $CFN = echo "$LLN-$LFN ($LN)"
-echo $CFN
+
 copy E:\Audit\other\LAC2019.xlsx E:\Audit\Audit\CERT3Web\Learners\$CFN.xlsx
 }until ($SC -eq $STUDNUM+1)
 
@@ -124,7 +124,7 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 3
 $SN = 2
 $SC = 0
-echo $STUDNUM
+
 DO{
 $LN = (Get-Content 'E:\Audit\other\cert4net\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[0];} ) 
 $LLN = (Get-Content 'E:\Audit\other\cert4net\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[1];} )
@@ -133,7 +133,7 @@ $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
 $CFN = echo "$LLN-$LFN ($LN)"
-echo $CFN
+
 copy E:\Audit\other\LAC2019.xlsx E:\Audit\Audit\CERT4Net\Learners\$CFN.xlsx
 }until ($SC -eq $STUDNUM+1)
 
@@ -149,7 +149,7 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 3
 $SN = 2
 $SC = 0
-echo $STUDNUM
+
 DO{
 $LN = (Get-Content 'E:\Audit\other\cert4web\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[0];} ) 
 $LLN = (Get-Content 'E:\Audit\other\cert4web\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[1];} )
@@ -158,7 +158,7 @@ $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
 $CFN = echo "$LLN-$LFN ($LN)"
-echo $CFN
+
 copy E:\Audit\other\LAC2019.xlsx E:\Audit\Audit\CERT4Web\Learners\$CFN.xlsx
 }until ($SC -eq $STUDNUM+1)
 
@@ -174,7 +174,7 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 3
 $SN = 2
 $SC = 0
-echo $STUDNUM
+
 DO{
 $LN = (Get-Content 'E:\Audit\other\cert4prog\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[0];} ) 
 $LLN = (Get-Content 'E:\Audit\other\cert4prog\Students.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[1];} )
@@ -183,7 +183,7 @@ $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
 $CFN = echo "$LLN-$LFN ($LN)"
-echo $CFN
+
 copy E:\Audit\other\LAC2019.xlsx E:\Audit\Audit\CERT4Prog\Learners\$CFN.xlsx
 }until ($SC -eq $STUDNUM+1)
 
@@ -200,13 +200,13 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 5
 $SN = 4
 $SC = 0
-echo $STUDNUM
+
 DO{
 $UNum = (Get-Content 'E:\Audit\other\Cert1\CSV\units.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[3];} ) 
 $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
-echo $UNum
+
 
 copy E:\Audit\other\UnitAudit.docx E:\Audit\Audit\CERT1IT\Units\$UNum.docx
 }until ($SC -eq $STUDNUM+1)
@@ -224,13 +224,13 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 5
 $SN = 4
 $SC = 0
-echo $STUDNUM
+
 DO{
 $UNum = (Get-Content 'E:\Audit\other\cet3net\Units.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[4];} ) 
 $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
-echo $UNum
+
 
 copy E:\Audit\other\UnitAudit.docx E:\Audit\Audit\CERT3Net\Units\$UNum.docx
 }until ($SC -eq $STUDNUM+1)
@@ -248,13 +248,13 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 5
 $SN = 4
 $SC = 0
-echo $STUDNUM
+
 DO{
 $UNum = (Get-Content 'E:\Audit\other\cert3web\Units.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[4];} ) 
 $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
-echo $UNum
+
 
 copy E:\Audit\other\UnitAudit.docx E:\Audit\Audit\CERT3Web\Units\$UNum.docx
 }until ($SC -eq $STUDNUM+1)
@@ -273,13 +273,13 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 5
 $SN = 4
 $SC = 0
-echo $STUDNUM
+
 DO{
 $UNum = (Get-Content 'E:\Audit\other\cert4net\units.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[4];} ) 
 $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
-echo $UNum
+
 
 copy E:\Audit\other\UnitAudit.docx E:\Audit\Audit\CERT4Net\Units\$UNum.docx
 }until ($SC -eq $STUDNUM+1)
@@ -297,20 +297,19 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 5
 $SN = 4
 $SC = 0
-echo $STUDNUM
+
 DO{
 $UNum = (Get-Content 'E:\Audit\other\cert4prog\units.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[2];} ) 
 $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
-echo $UNum
+
 
 copy E:\Audit\other\UnitAudit.docx E:\Audit\Audit\CERT4Prog\Units\$UNum.docx
 }until ($SC -eq $STUDNUM+1)
 
 remove-item -path E:\Audit\other\cert4prog\lines.txt
 remove-item -path E:\Audit\Audit\CERT4Prog\Units\.docx
-remove-item -path 'E:\Audit\Audit\CERT4Prog\Units\Unit Number.docx'
 
 
 #certificate 4 Web
@@ -321,13 +320,11 @@ $STUDNUM = $STUDNUMM.Count
 $TC = 5
 $SN = 4
 $SC = 0
-echo $STUDNUM
 DO{
 $UNum = (Get-Content 'E:\Audit\other\cert4web\units.csv'-totalcount $TC| Select-Object -skip $SN| %{ $_.Split(',')[4];} ) 
 $TC =$TC+1
 $SN =$SN+1
 $SC =$SC+1
-echo $UNum
 
 copy E:\Audit\other\UnitAudit.docx E:\Audit\Audit\CERT4Web\Units\$UNum.docx
 }until ($SC -eq $STUDNUM+1)
