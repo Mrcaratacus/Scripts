@@ -1,0 +1,59 @@
+#Install-Module PSWritePDF -Force -scope currentuser
+#Update-Module PSWritePDF
+
+$x= 0
+$webloc= 'E:\S1 - 2020\Certificate III - WEB\ILP\Signed'
+$netloc= 'E:\S1 - 2020\Certificate III- Net\ILP\Signed'
+$cert1loc= 'E:\S1 - 2020\Certficate 1\ILP\Signed'
+
+
+
+
+split-PDF -FilePath "$webloc\Web.pdf" -OutputFolder "$webloc\"
+Split-PDF -FilePath "$cert1loc\Certificate 1.pdf" -OutputFolder "$cert1loc\"
+Split-PDF -FilePath "$netloc\Network.pdf" -OutputFolder "$netloc\"
+
+
+do
+{
+   $FilePath1 = "$webloc\OutputDocument$x.pdf"
+$x = $x+1
+$FilePath2 = "$webloc\OutputDocument$x.pdf"
+$x = $x+1
+$FilePath3 = "$webloc\OutputDocument$x.pdf"
+$x = $x+1
+$FilePath4 = "$webloc\OutputDocument$x.pdf"
+$x = $x+1
+$OutputFile = "$webloc\MergedDoc$x.pdf" # Shouldn't exist / will be overwritten
+Merge-PDF -InputFile $FilePath1, $FilePath2, $FilePath3, $FilePath4 -OutputFile $OutputFile
+}until($x -ge 103)
+
+$x = 0
+do
+{
+   $FilePath1 = "$netloc\OutputDocument$x.pdf"
+$x = $x+1
+$FilePath2 = "$netloc\OutputDocument$x.pdf"
+$x = $x+1
+$FilePath3 = "$netloc\OutputDocument$x.pdf"
+$x = $x+1
+$FilePath4 = "$netloc\OutputDocument$x.pdf"
+$x = $x+1
+$OutputFile = "$netloc\MergedDoc$x.pdf" # Shouldn't exist / will be overwritten
+Merge-PDF -InputFile $FilePath1, $FilePath2, $FilePath3, $FilePath4 -OutputFile $OutputFile
+}until($x -ge 123)
+
+$x = 0
+do
+{
+   $FilePath1 = "$cert1loc\OutputDocument$x.pdf"
+$x = $x+1
+$FilePath2 = "$cert1loc\OutputDocument$x.pdf"
+$x = $x+1
+$FilePath3 = "$cert1loc\OutputDocument$x.pdf"
+$x = $x+1
+$FilePath4 = "$cert1loc\OutputDocument$x.pdf"
+$x = $x+1
+$OutputFile = "$cert1loc\MergedDoc$x.pdf" # Shouldn't exist / will be overwritten
+Merge-PDF -InputFile $FilePath1, $FilePath2, $FilePath3, $FilePath4 -OutputFile $OutputFile
+}until($x -ge 63)
