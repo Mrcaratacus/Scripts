@@ -1,0 +1,19 @@
+#PS CUSTOMISATION
+$host.PrivateData.FontName = "Arial"
+$host.PrivateData.ScriptPaneBackgroundColor = "White"
+$host.PrivateData.ScriptPaneForegroundColor = "Black"
+$host.PrivateData.ConsolePaneBackgroundColor = "White"
+$host.PrivateData.ConsolePaneForegroundColor = "Black"
+$host.PrivateData.ConsolePaneTextBackgroundColor = "White"
+while (1){
+$TEXT = Read-Host 'What do you want to self type?'
+$string = "$TEXT `n"
+
+$Random = New-Object System.Random
+$string -split '' |
+  ForEach-Object{
+    Write-Host $_ -nonew
+    Start-Sleep -milliseconds $(1 + $Random.Next(200))
+   }
+   Pause
+   }
