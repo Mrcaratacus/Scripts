@@ -7,6 +7,8 @@ $host.PrivateData.ConsolePaneForegroundColor = "Black"
 $host.PrivateData.ConsolePaneTextBackgroundColor = "White"
 #while (1){
 
+cls
+
 $string = "`n `n                                                                                                                                                                    How was teaching drama before COVID? `n `n"
 
 $Random = New-Object System.Random
@@ -27,8 +29,6 @@ $string -split '' |
     Write-Host $_ -nonew
     Start-Sleep -milliseconds $(1 + $Random.Next(200))
    }
-      
-
 
 $string = "`n `n                                                                                                                       Do you find it hard to maintain social distancing while doing workshops? `n `n"
 
@@ -40,9 +40,11 @@ $string -split '' |
    }
       
 
-$string = "Constantly, a very practical based subject.    `n
-In saying that, other elements of drama have been focused on with the social distancing being introduced.   `n
- Students can still grasp an understanding of what is being taught, but a lot of the time, it cannot be demonstrated.  `n"
+
+$string = "Constantly, drama is a very practical based subject. `n
+In saying that, other elements of drama have been focused on with the social distancing being introduced. `n
+ Students can still grasp an understanding of what is being taught, but a lot of the time, it cannot be demonstrated.`n"
+
 
 $Random = New-Object System.Random
 $string -split '' |
