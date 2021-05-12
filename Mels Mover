@@ -9,12 +9,24 @@ $day = Get-Date -Format "dd"
 $Newfold = 01
 $Currentfolder = "$year-$Month"
 $CD = Get-Location
+$Path= "$CD\$Currentfolder"
 
-# this IF statment checks to see if its the first day of the month and if so it creates a new folder with the YEAR-MONTHNUM format eg 2021-03
-# IF the statment returns nothing then it will ONLY copy ALL PDF docuemtns from the current directory and place them in the relevent folder.
-IF($Newfold -eq $day) {
-New-Item -Name "$year-$Month" -ItemType directory | Out-Null
-}
-else {
+
+<# this IF statment checks to see if its the first day of the month and if so it creates a new folder with the YEAR-MONTHNUM format eg 2021-03, it then checks to see if that folder already exists to prevent errors
+and doubling up of directories.
+ IF the statment returns nothing then it will ONLY copy ALL PDF docuemtns from the current directory and place them in the relevent folder.#>
+
+if (!(Test-Path $Path))
+{
+if ($Newfold -eq $day) {
+New-Item -Name "$year-$Month" -ItemType directory
 Move-item -path "$CD\*.pdf" -Destination $CD\$Currentfolder 
 }
+}
+else
+{
+
+Move-item -path "$CD\*.pdf" -Destination $CD\$Currentfolder 
+}
+
+
