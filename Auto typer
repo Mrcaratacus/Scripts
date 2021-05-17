@@ -4,24 +4,29 @@ Write-host '| / \|| | ||  / \  | / \|_____ / \   \  / |  \/||  \  |  \/|'
 Write-host '| |-||| \_/|  | |  | \_/|\____\| |   / /  |  __/|  /_ |    /'
 Write-host '\_/ \|\____/  \_/  \____/      \_/  /_/   \_/   \____\\_/\_\ '
 
-$CSVloc = read-host "Please Drag and Drop the CSV on to this script and press ENTER"
+Write-host 'MAKE SURE THE ORDER IS THE ONLY CSV FILE IN THE DIRCETORY'
 
+Sleep -s 3
 
-$Part =  Get-Content "$CSVloc"|Select-Object -skip 3 | %{ $_.Split(',')[2];}  
+$CD = Get-Location
+$Path= "$CD"
+
+$Part =  Get-Content "$Path\*.CSV"|Select-Object -skip 3 | %{ $_.Split(',')[2];}  
 $Part = $Part -replace '["=]'|Select-Object -Skip 13
 $part > Part.txt
 $Partnum = Get-Content part.txt
 $Partnum = $partnum.count
 $Partnumc = 0
 $qty =  Get-Content '*.csv'|Select-Object -skip 3 | %{ $_.Split(',')[6];}  
-$qty = $qty -replace '["=.0]'|Select-Object -Skip 13
+$qty = $qty |Select-Object -Skip 13
 $qty > qty.txt
 $qtynum = Get-Content part.txt
 $qtynum = $qtynum.count
 $qtynumc = 0
 $breaktime = 0
-
+Add-Type -AssemblyName System.Windows.Forms
 if( $Partnum -eq $qtynum){
+
 write-host " _______                        __    "       
 write-host "|_   __ \                      |  ]          "
 write-host "  | |__) |  .---.  ,--.    .--.| |   _   __  "
@@ -31,40 +36,40 @@ write-host "|____| |___|'.__.'\'-;__/ '.__.;__][\_:  /   "
 write-host "                                    \__.' "
 
 Write-host " Please click on the FIRST line in Oracle You have 4 seconds"
-sleep 4
+Sleep -s 4
 }else{
 Write-host " DATA MISMATCH "
 Write-host "SCRIPT WILL NOW TERMINATE"
 Pause 3  
 exit}
 
-$CD = Get-Location
-$Path= "$CD"
-
 DO{
-#Get-Content "$Path\part.txt" | Select-Object -Skip $Partnumc -First 1| set-Clipboard
-#[System.Windows.Forms.SendKeys]::SendWait("^v")
-#[System.Windows.Forms.SendKeys]::SendWait("{TAB}")
+Get-Content "$Path\part.txt" | Select-Object -Skip $Partnumc -First 1| set-Clipboard
+[System.Windows.Forms.SendKeys]::SendWait("^v")
+[System.Windows.Forms.SendKeys]::SendWait("{TAB}")
 $Partnumc = $Partnumc+1
-#Sleep 4
 
-#Get-Content "$Path\qty.txt" | Select-Object -Skip $qtynumc -First 1| set-Clipboard
-#[System.Windows.Forms.SendKeys]::SendWait("^v")
-#[System.Windows.Forms.SendKeys]::SendWait("{Down}")
+Sleep -s 3
+
+Get-Content "$Path\qty.txt" | Select-Object -Skip $qtynumc -First 1| set-Clipboard
+[System.Windows.Forms.SendKeys]::SendWait("^v")
+[System.Windows.Forms.SendKeys]::SendWait("{Down}")
 $qtynumc = $qtynumc+1
+
+Sleep -s 1
+
 
 if($breaktime -eq 100 -OR $breaktime -eq 200 -OR $breaktime -eq 300 -OR $breaktime -eq 400 -OR $breaktime -eq 505 ){
 $Ans = read-host "Is Everything okay ? Y or N"
 if($Ans -eq "N" -OR $Ans -eq "n"){
 write-host "ERROR HAS BEEN SPECIFIED TERMINATING SCRIPT"
+remove-item $Path\qty.txt
+remove-item $Path\part.txt
 Pause
 #Exit
 }}
 $breaktime = $breaktime+1
 }until($partnumc -eq $partnum)
-
-remove-item $Path\qty.txt
-remove-item $Path\part.txt
 
 if($partnumc -eq $partnum){
 write-host " -----------------------------------------------------------------------------------------------"
@@ -77,4 +82,8 @@ write-host " |_____/ \___|_|  |_| .__/ \__|  \_____\____/|_|  |_|_|    |______|_
 write-host " -----_-----------------------------------------------------------------------------------------"
 write-host " PLEASE CHECK ORACLE FOR ANY MISTAKES"
 }
-Pause 10
+
+remove-item $Path\qty.txt
+remove-item $Path\part.txt
+
+Pause 
