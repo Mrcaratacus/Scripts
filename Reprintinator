@@ -11,76 +11,68 @@ $CSVloc = "C:\Users\JHANSC01\Downloads\Powershell\Pick release live data 2021051
 $CD = Get-Location
 $Path= "$CD"
 
-$Reprint =  Get-Content $CSVloc| Select-Object -skip 1 | %{ $_.Split(',')[9];}  
+#$Reprint =  Get-Content $CSVloc| Select-Object -skip 1 | %{ $_.Split(',')[9];}  
 #$Reprint = $Reprint -replace '["=]'|Select-Object -Skip 13
-$Reprint > printnum.txt
+#$Reprint > printnum.txt
 
 $Reprintnum = Get-Content printnum.txt
 $Reprintnum = $Reprintnum.count
 $Reprintnumc = 0
 
-pause
-sleep 4
-write-host "$Reprintnum" 
-
-write-host " _______                        __    "       
-write-host "|_   __ \                      |  ]          "
-write-host "  | |__) |  .---.  ,--.    .--.| |   _   __  "
-write-host "  |  __ /  / /__\\`'_\ : / /'`\' |  [ \ [  ] "
-write-host " _| |  \ \_| \__.,// | |,| \__/  |   \ '/ /  "
-write-host "|____| |___|'.__.'\'-;__/ '.__.;__][\_:  /   "
-write-host "                                    \__.' "
-
 Write-host " Please open the new request from in oracle and leave your PC , you have 10 seconds"
-sleep 10
+Sleep -s 10
 
 
 Add-Type -AssemblyName System.Windows.Forms
 
 [System.Windows.Forms.SendKeys]::SendWait("{TAB 4}")
 [System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
-sleep 1
-$info = "%APAC%"
+Sleep -s 1
+$info = "%pick%"
 $info | Set-clipboard
-sleep 1
+Sleep -s 1
 [System.Windows.Forms.SendKeys]::SendWait("^v")
-
 [System.Windows.Forms.SendKeys]::SendWait("{TAB}")
-[System.Windows.Forms.SendKeys]::SendWait("{Down 9}")
+[System.Windows.Forms.SendKeys]::SendWait("{Down 6}")
 [System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
-sleep 1
+Sleep -s 3
 $info = "220"
 $info | Set-clipboard
-sleep 1
+Sleep -s 1
+
 [System.Windows.Forms.SendKeys]::SendWait("^v")
 [System.Windows.Forms.SendKeys]::SendWait("{TAB}")
-[System.Windows.Forms.SendKeys]::SendWait("{TAB 8}")
-sleep 1
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 7}")
+Sleep -s 1
 $info = "Yes"
 $info | Set-clipboard
-sleep 1
+Sleep -s 1
+
 [System.Windows.Forms.SendKeys]::SendWait("^v")
 [System.Windows.Forms.SendKeys]::SendWait("{TAB}")
 [System.Windows.Forms.SendKeys]::SendWait("{TAB}")
 Get-Content "$Path\printnum.txt" | Select-Object -Skip $Reprintnumc -First 1| set-Clipboard
 [System.Windows.Forms.SendKeys]::SendWait("^v")
-[System.Windows.Forms.SendKeys]::SendWait("{TAB 4}")
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
 [System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
 [System.Windows.Forms.SendKeys]::SendWait("{TAB 2}")
-Sleep 1
+Sleep -s 1
+[System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
 [System.Windows.Forms.SendKeys]::SendWait("{TAB}")
 [System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
+Sleep -s 15
 [System.Windows.Forms.SendKeys]::SendWait("{TAB 7}")
+Sleep -s 5
 [System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
-[System.Windows.Forms.SendKeys]::SendWait("{TAB 15}")
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 14}")
 [System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
-Sleep 4
+Sleep -s 10
 [System.Windows.Forms.SendKeys]::SendWait("^p")
+Sleep -s 1
 [System.Windows.Forms.SendKeys]::SendWait("{TAB 15}")
+[System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
+Sleep -s 1
+[System.Windows.Forms.SendKeys]::SendWait("%{F4}")
 $Reprintnumc = $Reprintnumc+1
-
-
-
-#Get-Content "$Path\printnum.txt" | Select-Object -Skip $Reprintnumc -First 1| set-Clipboard
 
 pause
