@@ -1,0 +1,96 @@
+Write-host "....###....##.....##.########..#######..########.########.##.....##.########....##.....##..#######."
+Write-host "...##.##...##.....##....##....##.....##....##....##........##...##.....##.......##.....##.##.....##"
+Write-host "..##...##..##.....##....##....##.....##....##....##.........##.##......##.......##.....##........##"
+Write-host ".##.....##.##.....##....##....##.....##....##....######......###.......##.......##.....##..#######."
+Write-host ".#########.##.....##....##....##.....##....##....##.........##.##......##........##...##..##......."
+Write-host ".##.....##.##.....##....##....##.....##....##....##........##...##.....##.........##.##...##......."
+Write-host ".##.....##..#######.....##.....#######.....##....########.##.....##....##..........###....#########"
+
+Write-host 'MAKE SURE THE ORDER IS THE ONLY CSV FILE IN THE DIRCETORY'
+
+Sleep -s 3
+
+$CD = Get-Location
+$Path= "$CD"
+
+
+$Part =  Get-Content "$Path\*.CSV"|Select-Object -skip 3 | %{ $_.Split(',')[2];}  
+$Part = $Part -replace '["=]'|Select-Object -Skip 13
+$part > Part.txt
+$Partnum = Get-Content part.txt
+$Partnum = $partnum.count
+$Partnumc = 0
+
+
+$qty =  Get-Content '*.csv'|Select-Object -skip 3 | %{ $_.Split(',')[6];}  
+$qty = $qty |Select-Object -Skip 13
+$qty > qty.txt
+$qtynum = Get-Content part.txt
+$qtynum = $qtynum.count
+$qtynumc = 0
+$breaktime = 0
+Add-Type -AssemblyName System.Windows.Forms
+if( $Partnum -eq $qtynum){
+
+write-host " _______                        __    "       
+write-host "|_   __ \                      |  ]          "
+write-host "  | |__) |  .---.  ,--.    .--.| |   _   __  "
+write-host "  |  __ /  / /__\\`'_\ : / /'`\' |  [ \ [  ] "
+write-host " _| |  \ \_| \__.,// | |,| \__/  |   \ '/ /  "
+write-host "|____| |___|'.__.'\'-;__/ '.__.;__][\_:  /   "
+write-host "                                    \__.' "
+
+Write-host " Please click on the FIRST line in Oracle You have 4 seconds"
+Sleep -s 4
+}
+else{
+Write-host " DATA MISMATCH "
+Write-host "SCRIPT WILL NOW TERMINATE"
+Pause 3  
+exit}
+
+DO{
+Get-Content "$Path\part.txt" | Select-Object -Skip $Partnumc -First 1| set-Clipboard
+[System.Windows.Forms.SendKeys]::SendWait("^v")
+[System.Windows.Forms.SendKeys]::SendWait("{Enter}")
+sleep -s 2
+[System.Windows.Forms.SendKeys]::SendWait("{Enter}")
+[System.Windows.Forms.SendKeys]::SendWait("{Down}")
+Sleep -s 2
+$Partnumc = $Partnumc+1
+write-host "Line =" $Partnumc
+write-host $partnum
+}until($partnumc -eq $partnum)
+
+Sleep -s 1
+
+Write-host "PLEASE MOVE TO THE TOP OF THE ORDER FOR THE QTY"
+$ready = read-host "Are you ready for the QTY ? Y or N"
+if($ready -eq "Y" -OR $ready -eq "y"){
+write-host "Script with resume in 5 seconds"
+Sleep -s 5
+DO{
+Sleep -s 1
+Get-Content "$Path\qty.txt" | Select-Object -Skip $qtynumc -First 1| set-Clipboard
+[System.Windows.Forms.SendKeys]::SendWait("^v")
+[System.Windows.Forms.SendKeys]::SendWait("{Down}")
+$qtynumc = $qtynumc+1
+}until($qtynumc -eq $qtynum)}
+
+
+if($partnumc -eq $partnum -and $qtynumc -eq $qtynum){
+write-host " -----------------------------------------------------------------------------------------------"
+write-host "   _____           _       _      _____ ____  __  __ _____  _      ______ _______ ______ _____   "
+write-host "  / ____|         (_)     | |    / ____/ __ \|  \/  |  __ \| |    |  ____|__   __|  ____|  __ \  "
+write-host " | (___   ___ _ __ _ _ __ | |_  | |   | |  | | \  / | |__) | |    | |__     | |  | |__  | |  | |   "
+write-host "  \___ \ / __| '__| | '_ \| __| | |   | |  | | |\/| |  ___/| |    |  __|    | |  |  __| | |  | |   "
+write-host "  ____) | (__| |  | | |_) | |_  | |___| |__| | |  | | |    | |____| |____   | |  | |____| |__| |    "
+write-host " |_____/ \___|_|  |_| .__/ \__|  \_____\____/|_|  |_|_|    |______|______|  |_|  |______|_____/ "
+write-host " -----_-----------------------------------------------------------------------------------------"
+write-host " PLEASE CHECK ORACLE FOR ANY MISTAKES"
+}
+
+remove-item $Path\qty.txt
+remove-item $Path\part.txt
+
+Pause 
