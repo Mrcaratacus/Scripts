@@ -1,0 +1,204 @@
+write-host " ________  ________  ________      ________  _______   ________  ________  ________  ___  ___  _______   ________     "
+write-host " |\   __  \|\   ___ \|\  _____\    |\   ____\|\  ___ \ |\   __  \|\   __  \|\   ____\|\  \|\  \|\  ___ \ |\   __  \    "
+write-host " \ \  \|\  \ \  \_|\ \ \  \__/     \ \  \___|\ \   __/|\ \  \|\  \ \  \|\  \ \  \___|\ \  \\\  \ \   __/|\ \  \|\  \   "
+write-host "  \ \   ____\ \  \ \\ \ \   __\     \ \_____  \ \  \_|/_\ \   __  \ \   _  _\ \  \    \ \   __  \ \  \_|/_\ \   _  _\  "
+write-host "   \ \  \___|\ \  \_\\ \ \  \_|      \|____|\  \ \  \_|\ \ \  \ \  \ \  \\  \\ \  \____\ \  \ \  \ \  \_|\ \ \  \\  \| "
+write-host "    \ \__\    \ \_______\ \__\         ____\_\  \ \_______\ \__\ \__\ \__\\ _\\ \_______\ \__\ \__\ \_______\ \__\\ _\ "
+write-host "     \|__|     \|_______|\|__|        |\_________\|_______|\|__|\|__|\|__|\|__|\|_______|\|__|\|__|\|_______|\|__|\|__|"
+write-host "                                      \|_________| "
+
+#Variable block
+#$WAL = "\\wygpwfs02\General\CUSTOMER SERVICE\Pickslip Archive"
+$WAL = "C:\Users\JHANSC01\Downloads\Powershell\PDF_Searcher\PDFLOC"
+$year = Get-Date -Format "yyyy"
+$CD = Get-Location
+$MAIN = 0
+$MTOG = 0
+$Monthc = 0
+$montharrayN = @("01","02","03","04","05","06","07","08","09","10","11","12")
+$monthLOC = @("\$YEAR-01","\$YEAR-02","\$YEAR-03","\$YEAR-04","\$YEAR-05","\$YEAR-06","\$YEAR-07","\$YEAR-08","\$YEAR-09","\$YEAR-10","\$YEAR-11","\$YEAR-12")
+$DRDC = [long]$DRD 
+$results = @()
+$KEY = read-host "please enter the keywords you wish to search, If you are using multiple keywords using 'WORD', format"
+$keywords = @("177809671","178191028")
+$export = "$CD\export.csv"
+Add-Type -Path $CD\lib\itextsharp.dll
+
+# Requests a date range
+$DYKDR = Read-Host "Do you know the date Range Y or N?"
+if($DYKDR -eq "Y" -or $DYKDR -eq "y"){
+$DR = Read-Host "Please enter the start date in MMDD format eg 0516"
+$DRE = Read-Host "Please enter the end day in the DD format eg 20"
+$DRM = $DR.Substring(0,2)
+$DRD = [int]$DR.Substring(2,2)
+$DRE =[int]$DRE
+$MTOG = 1
+if($montharrayN -contains $DRM){
+    DO{
+
+     if($montharrayN[$MAIN] -eq $DRM){
+     $PDFLOC = $WAL+$monthLOC[$MAIN]
+     }
+    $MAIN = $MAIN+1
+    }until($MAIN -eq 12)
+}else{
+$DR = "*" #>
+}
+
+#Below Loop is for date range search
+
+do{
+
+$DRDTWO = "{0:D2}" -f $DRD
+$pdfs = gci "$PDFLOC\*$DRM$DRDTWO*.pdf"
+
+
+foreach($pdf in $pdfs) {
+
+    Write-Host "processing -" $pdf.FullName
+
+    # prepare the pdf
+    $reader = New-Object iTextSharp.text.pdf.pdfreader -ArgumentList $pdf.FullName
+
+    # for each page
+    for($page = 1; $page -le $reader.NumberOfPages; $page++) {
+    
+        # set the page text
+        $pageText = [iTextSharp.text.pdf.parser.PdfTextExtractor]::GetTextFromPage($reader,$page).Split([char]0x000A)
+
+        # if the page text contains any of the keywords we're evaluating
+        foreach($keyword in $keywords) {
+            if($pageText -match $keyword) {
+                $response = @{
+                    keyword = $keyword
+                    file = $pdf.FullName
+                    page = $page
+                }
+                $results += New-Object PSObject -Property $response
+            }
+        }
+    }
+    $reader.Close()
+ 
+} 
+$DRD = $DRD+1
+}until($DRD -eq $DRE+1)
+$results | epcsv $export -NoTypeInformation
+Write-host "Script is completed and will now exit"
+Sleep -s 10
+exit
+}
+
+
+# The Below asks if you want to search everything and if NOT you can specify the month you want to search if you haven't put in a date range
+if($MTOG -eq 0){
+$DYSAA = Read-Host "Do you Wish to Search the Whole Archive  Y or N?"
+if($DYSAA -eq "Y" -or $DYSAA -eq "y"){
+#Below Loop Allows for Whole Archive Search ( Minus NZ folders)
+do{
+$PDFLOC = $WAL+$monthLOC[$MAIN]
+$pdfs = gci $PDFLOC\*$DR*.pdf
+
+foreach($pdf in $pdfs) {
+
+    Write-Host "processing -" $pdf.FullName
+
+    # prepare the pdf
+    $reader = New-Object iTextSharp.text.pdf.pdfreader -ArgumentList $pdf.FullName
+
+    # for each page
+    for($page = 1; $page -le $reader.NumberOfPages; $page++) {
+    
+        # set the page text
+        $pageText = [iTextSharp.text.pdf.parser.PdfTextExtractor]::GetTextFromPage($reader,$page).Split([char]0x000A)
+
+        # if the page text contains any of the keywords we're evaluating
+        foreach($keyword in $keywords) {
+            if($pageText -match $keyword) {
+                $response = @{
+                    keyword = $keyword
+                    file = $pdf.FullName
+                    page = $page
+                }
+                $results += New-Object PSObject -Property $response
+            }
+        }
+    }
+    $reader.Close()
+}
+
+
+write-host $MAIN
+$MAIN = $MAIN+1
+
+}until($MAIN -eq 12+1)
+$results | epcsv $export -NoTypeInformation
+Write-host "Script is completed and will now exit"
+Sleep -s 10
+exit
+
+
+
+
+
+}else{
+$month = read-host "Please Enter the Month you would like to search using the months 2 digit number IE 01"
+if($montharrayN -contains $month){
+    DO{
+
+     if($montharrayN[$MAIN] -eq $month){
+     $PDFLOC = $WAL+$monthLOC[$MAIN]
+     }
+
+    $MAIN = $MAIN+1
+    }until($MAIN -eq 12)
+}else{
+$PDFLOC= Read-Host "What is the path to the folder containing the PDFS"
+}
+}
+}
+
+
+# ^ above is the file location determinsation section of the script
+
+
+
+# May need to put the below in the date range if loop
+
+$pdfs = gci $PDFLOC\*$DR*.pdf
+
+#Below Loop is for the standard month search 
+foreach($pdf in $pdfs) {
+
+    Write-Host "processing -" $pdf.FullName
+
+    # prepare the pdf
+    $reader = New-Object iTextSharp.text.pdf.pdfreader -ArgumentList $pdf.FullName
+
+    # for each page
+    for($page = 1; $page -le $reader.NumberOfPages; $page++) {
+    
+        # set the page text
+        $pageText = [iTextSharp.text.pdf.parser.PdfTextExtractor]::GetTextFromPage($reader,$page).Split([char]0x000A)
+
+        # if the page text contains any of the keywords we're evaluating
+        foreach($keyword in $keywords) {
+            if($pageText -match $keyword) {
+                $response = @{
+                    keyword = $keyword
+                    file = $pdf.FullName
+                    page = $page
+                }
+                $results += New-Object PSObject -Property $response
+            }
+        }
+    }
+    $reader.Close()
+}
+
+
+Write-Host ""
+Write-Host "done"
+
+$results | epcsv $export -NoTypeInformation
+pause
