@@ -29,7 +29,7 @@ $KEYT = 0
 
 
 
-$KEY = read-host "Do  you have more then one keyword Y or N?"
+$KEY = read-host "Do you have more then one keyword Y or N?"
 
 if($KEY -eq "Y" -or $KEY -eq "y"){
 $KEYIMPORTT= read-host "Do  you have a List of Keywords Y or N?"
@@ -117,6 +117,25 @@ $DRD = $DRD+1
 }until($DRD -eq $DRE+1)
 $results | epcsv $export -NoTypeInformation
 Write-host "Script is completed and will now exit"
+$FILELOC =  Get-Content export.csv|Select-Object -skip 1 | %{ $_.Split(',')[2];}  
+$FILELOC > FILELOC.txt
+$FILELOCT = Get-Content FILELOC.txt
+$FILELOCT = $FILELOCT.count
+$Partnumc = 0
+if($FILELOCT -eq 0){
+Write-host "NO FILES FOUND"
+}else{
+do{
+$LOCF = Get-Content "FILELOC.txt" | Select-Object -Skip $Partnumc -First 1
+
+$Partnumc = $Partnumc+1
+explorer.exe "$LOCF"
+}until($Partnumc -eq $FILELOCT)
+}
+pause
+
+Remove-Item FILELOC.txt
+
 Sleep -s 10
 exit
 }
@@ -169,6 +188,25 @@ $MAIN = $MAIN+1
 
 $results | epcsv $export -NoTypeInformation
 Write-host "Script is completed and will now exit"
+$FILELOC =  Get-Content export.csv|Select-Object -skip 1 | %{ $_.Split(',')[2];}  
+$FILELOC > FILELOC.txt
+$FILELOCT = Get-Content FILELOC.txt
+$FILELOCT = $FILELOCT.count
+$Partnumc = 0
+if($FILELOCT -eq 0){
+Write-host "NO FILES FOUND"
+}else{
+do{
+$LOCF = Get-Content "FILELOC.txt" | Select-Object -Skip $Partnumc -First 1
+
+$Partnumc = $Partnumc+1
+explorer.exe "$LOCF"
+}until($Partnumc -eq $FILELOCT)
+}
+pause
+
+Remove-Item FILELOC.txt
+
 Sleep -s 3
 exit
 
@@ -234,6 +272,25 @@ foreach($pdf in $pdfs) {
 
 Write-Host ""
 Write-Host "done"
+
+$FILELOC =  Get-Content export.csv|Select-Object -skip 1 | %{ $_.Split(',')[2];}  
+$FILELOC > FILELOC.txt
+$FILELOCT = Get-Content FILELOC.txt
+$FILELOCT = $FILELOCT.count
+$Partnumc = 0
+if($FILELOCT -eq 0){
+Write-host "NO FILES FOUND"
+}else{
+do{
+$LOCF = Get-Content "FILELOC.txt" | Select-Object -Skip $Partnumc -First 1
+
+$Partnumc = $Partnumc+1
+explorer.exe "$LOCF"
+}until($Partnumc -eq $FILELOCT)
+}
+pause
+
+Remove-Item FILELOC.txt
 
 $results | epcsv $export -NoTypeInformation
 pause
