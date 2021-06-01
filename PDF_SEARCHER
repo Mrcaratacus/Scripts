@@ -19,10 +19,42 @@ $montharrayN = @("01","02","03","04","05","06","07","08","09","10","11","12")
 $monthLOC = @("\$YEAR-01","\$YEAR-02","\$YEAR-03","\$YEAR-04","\$YEAR-05","\$YEAR-06","\$YEAR-07","\$YEAR-08","\$YEAR-09","\$YEAR-10","\$YEAR-11","\$YEAR-12")
 $DRDC = [long]$DRD 
 $results = @()
-$KEY = read-host "please enter the keywords you wish to search, If you are using multiple keywords using 'WORD', format"
-$keywords = @("177809671","178191028")
+$keywords = @()
 $export = "$CD\export.csv"
 Add-Type -Path $CD\lib\itextsharp.dll
+$KEYIMPORT = Get-Content $CD\keywordlist.txt
+$KEYIMPORTC = $KEYIMPORT.count
+$KEYIMPORTN = 0
+$KEYT = 0
+
+
+
+$KEY = read-host "Do  you have more then one keyword Y or N?"
+
+if($KEY -eq "Y" -or $KEY -eq "y"){
+$KEYIMPORTT= read-host "Do  you have a List of Keywords Y or N?"
+
+if($KEYIMPORTT -eq "Y" -or $KEYIMPORTT -eq "y"){
+Write-host "PLEASE ENSURE THE LIST IS keywordlist.txt"
+pause
+DO{
+$KEY = Get-Content "$CD\keywordlist.txt" | Select-Object -Skip $KEYIMPORTN -First 1
+$keywords += $KEY
+$KEYIMPORTN = $KEYIMPORTN+1
+$KEYT = 1
+}until($KEYIMPORTN -eq $KEYIMPORTC)
+}
+while($KEYT -eq 0){
+$KEY = read-host "Please enter the keyword you wish to search when done please type DONE"
+if($KEY -eq "DONE"){
+$KEYT = 1
+}else{
+$keywords += $KEY
+}
+}
+}else{$KEY = read-host "Please enter the keyword you wish to search"
+$keywords += $KEY}
+
 
 # Requests a date range
 $DYKDR = Read-Host "Do you know the date Range Y or N?"
@@ -95,6 +127,7 @@ if($MTOG -eq 0){
 $DYSAA = Read-Host "Do you Wish to Search the Whole Archive  Y or N?"
 if($DYSAA -eq "Y" -or $DYSAA -eq "y"){
 #Below Loop Allows for Whole Archive Search ( Minus NZ folders)
+
 do{
 $PDFLOC = $WAL+$monthLOC[$MAIN]
 $pdfs = gci $PDFLOC\*$DR*.pdf
@@ -129,12 +162,14 @@ foreach($pdf in $pdfs) {
 
 
 write-host $MAIN
+write-host $PDFLOC
 $MAIN = $MAIN+1
 
 }until($MAIN -eq 12+1)
+
 $results | epcsv $export -NoTypeInformation
 Write-host "Script is completed and will now exit"
-Sleep -s 10
+Sleep -s 3
 exit
 
 
