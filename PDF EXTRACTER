@@ -1,0 +1,139 @@
+Add-Type -AssemblyName System.Windows.Forms
+[system.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") | out-null
+
+# Set the exactly position of cursor in some iexplore hyperlink between the (open parenthesis) below: 
+
+
+function Click-MouseButton
+{
+    $signature=@' 
+      [DllImport("user32.dll",CharSet=CharSet.Auto, CallingConvention=CallingConvention.StdCall)]
+      public static extern void mouse_event(long dwFlags, long dx, long dy, long cButtons, long dwExtraInfo);
+'@ 
+
+    $SendMouseClick = Add-Type -memberDefinition $signature -name "Win32MouseEventNew" -namespace Win32Functions -passThru 
+
+        $SendMouseClick::mouse_event(0x00000002, 0, 0, 0, 0);
+        $SendMouseClick::mouse_event(0x00000004, 0, 0, 0, 0);
+}
+
+sleep 3
+
+$pn = 0
+$count = 1
+
+$PGC = 1
+
+do{
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 17}") #-TABS to get to first part
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+
+[System.Windows.Forms.SendKeys]::SendWait("{TAB 3}")
+[System.Windows.Forms.SendKeys]::SendWait("^~")
+sleep -s 4
+
+
+
+
+do{
+[System.Windows.Forms.SendKeys]::SendWait("^{tab}")
+sleep -s 2
+[System.Windows.Forms.Cursor]::Position = New-Object System.Drawing.Point(550,1390)
+Click-MouseButton
+sleep -s 4
+[System.Windows.Forms.SendKeys]::SendWait("^p")
+sleep -s 2
+[System.Windows.Forms.SendKeys]::SendWait("{enter}")
+$count|Set-Clipboard
+sleep -s 2
+[System.Windows.Forms.SendKeys]::SendWait("^v")
+[System.Windows.Forms.SendKeys]::SendWait("{enter}")
+sleep -s 1
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+
+$count = $count+1
+$pn = $pn+1
+}until($pn -eq 20)
+
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+[System.Windows.Forms.SendKeys]::SendWait("^w")
+$PGC = $PGC+1
+
+[System.Windows.Forms.SendKeys]::SendWait("%{left}")
+[System.Windows.Forms.SendKeys]::SendWait("{tab 120}")
+sleep -s 7
+
+}until($PGC -eq 100)
