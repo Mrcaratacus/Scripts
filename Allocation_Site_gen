@@ -1,0 +1,438 @@
+
+#Variable Block
+$PWD = Get-Location
+$First_name = @()
+$Last_Name = @()
+$Start_Time = @()
+$loc = @()
+$date = Get-Date -Format dd-MM-yyyy
+
+$Pick_Today = @()
+$Pack_NZ = @()
+$MISC = @()
+$DCE_IAF = @()
+$Pack_Today = @()
+$Consol = @()
+$Replenish = @()
+$Warehouse_2 = @()
+$Line = @()
+$RMA = @()
+$Pick_Bulk = @()
+$Containers = @()
+$Warehouse_3 = @()
+$Yard_Dispatch = @()
+$Absent_Leave = @()
+$Pick_NZ = @()
+$Pack_Backline = @()
+$Stock_Control = @()
+$Cleaning = @()
+$Pack_Bulk = @()
+$count = 0
+
+ $Pick_Todayatd = @()
+ $Pack_NZatd = @()
+ $MISCatd = @()
+ $DCE_IAFatd = @()
+ $Pack_Todayatd = @()
+ $Consolatd = @()
+ $Replenishatd = @()
+ $Warehouse_2atd = @()
+ $Lineatd = @()
+ $RMAatd = @()
+ $Pick_Bulkatd = @()
+ $Containersatd = @()
+ $Warehouse_3atd = @()
+ $Yard_Dispatchatd = @()
+ $Absent_Leaveatd = @()
+ $Pick_NZatd= @()
+ $Pack_Backlineatd = @()
+ $Stock_Controlatd= @()
+ $Cleaningatd = @()
+ $Pack_Bulkatd= @()
+
+
+$First_name += Import-Csv $PWD\staff_list.csv| select First_name -expandproperty First_name
+$Last_Name += Import-Csv $PWD\staff_list.csv| select Last_name -expandproperty Last_name
+$Start_Time += Import-Csv $PWD\staff_list.csv| select Start_time -expandproperty Start_time
+$loc += Import-Csv $PWD\staff_list.csv| select Location -expandproperty Location
+$arrayc = $First_name.count
+
+
+do{
+$First_namea = $First_name[$count]
+$Last_Namea = $Last_Name[$count]
+$Start_Timea = $Start_Time[$count]
+$loca =$loc[$count]
+
+if($loca -match "Pick Today" ){
+$Pick_Today += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Pack NZ"){
+$Pack_NZ += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "MISC"){
+$MISC += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "DCE/IAF"){
+$DCE_IAF += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Pack Today"){
+$Pack_Today += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Consol"){
+$Consol += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Replenish"){
+$Replenish += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Warehouse 2"){
+$Warehouse_2 += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Line"){
+$Line += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "RMA"){
+$RMA += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Pick Bulk"){
+$Pick_Bulk += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Containers"){
+$Containers += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Warehouse 3"){
+$Warehouse_3 += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Yard/Dispatch"){
+$Yard_Dispatch += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Absent/Leave"){
+$Absent_Leave += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Pick NZ"){
+$Pick_NZ += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Pack Backline"){
+$Pack_Backline += "$First_namea $Last_Namea $Start_Timea"
+}
+
+elseif($loca -match "Stock Control"){
+$Stock_Control += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Cleaning"){
+$Cleaning += "$First_namea $Last_Namea $Start_Timea"
+}
+
+if($loca -match "Pack Bulk"){
+$Pack_Bulk += "$First_namea $Last_Namea $Start_Timea"
+}
+
+$count = $count+1
+}until($count -eq $arrayc)
+
+$count = 0
+$MAXALLOC = 15
+
+do{
+$Pick_Todaya = $Pick_Today[$count]
+$Pack_NZa = $Pack_NZ[$count]
+$MISCa = $MISC[$count]
+$DCE_IAFa = $DCE_IAF[$count]
+$Pack_Todaya = $Pack_Today[$count]
+$Consola = $Consol[$count]
+$Replenisha = $Replenish[$count]
+$Warehouse_2a = $Warehouse_2[$count]
+$Linea = $Line[$count]
+$RMAa = $RMA[$count]
+$Pick_Bulka = $Pick_Bulk[$count]
+$Containersa = $Containers[$count]
+$Warehouse_3a = $Warehouse_3[$count]
+$Yard_Dispatcha = $Yard_Dispatch[$count]
+$Absent_Leavea = $Absent_Leave[$count]
+$Pick_NZa = $Pick_NZ[$count]
+$Pack_Backlinea = $Pack_Backline[$count]
+$Stock_Controla = $Stock_Control[$count]
+$Cleaninga = $Cleaning[$count]
+$Pack_Bulka = $Pack_Bulk[$count]
+
+ $Pick_Todayatd += "<tr><td>$Pick_Todaya</td></tr>"
+ $Pack_NZatd += "<tr><td>$Pack_NZa</td></tr>"
+ $MISCatd += "<tr><td>$MISCa</td></tr>"
+ $DCE_IAFatd += "<tr><td>$DCE_IAFa</td></tr>"
+ $Pack_Todayatd += "<tr><td>$Pack_Todaya</td></tr>"
+ $Consolatd  += "<tr><td>$Consola</td></tr>"
+ $Replenishatd += "<tr><td>$Replenisha</td></tr>"
+ $Warehouse_2atd += "<tr><td>$Warehouse_2a</td></tr>"
+ $Lineatd += "<tr><td>$Linea</td></tr>"
+ $RMAatd += "<tr><td>$RMAa</td></tr>"
+ $Pick_Bulkatd += "<tr><td>$Pick_Bulka</td></tr>"
+ $Containersatd += "<tr><td>$Containersa</td></tr>"
+ $Warehouse_3atd += "<tr><td>$Warehouse_3a</td></tr>"
+ $Yard_Dispatchatd += "<tr><td>$Yard_Dispatcha</td></tr>"
+ $Absent_Leaveatd += "<tr><td>$Absent_Leavea</td></tr>"
+ $Pick_NZatd += "<tr><td>$Pick_NZa</td></tr>"
+ $Pack_Backlineatd += "<tr><td>$Pack_Backlinea</td></tr>"
+ $Stock_Controlatd += "<tr><td> $Stock_Controla</td></tr>"
+ $Cleaningatd += "<tr><td>$Cleaninga</td></tr>"
+ $Pack_Bulkatd += "<tr><td>$Pack_Bulka</td></tr>"
+$count = $count+1
+
+}until($count -eq $MAXALLOC)
+
+$HTMLS ='<!DOCTYPE html>
+<html>
+<style>
+body {
+background-color:#4169E1;
+}
+
+H1,H2{
+color: #FFFFFF;
+float: left;
+font-size: 50px;
+}
+
+#TCC{
+color:#000000;
+font-size: 25px;
+float: Left;
+padding: 20px;
+border: 3px solid black;
+text-align: center;
+border-radius:6px; 
+margin: 5px;
+float: left;
+background-color:#FFFFFF;
+
+}
+
+td{
+color:#000000;
+font-size: 20px;
+
+}
+
+
+#data{
+padding-top:150px;
+}
+
+</style>
+<title>Workforce Allocations</title>
+
+<div id="navigation">'
+$heading ="<H1>Workforce Allocations - $date </H1>"
+$htmlc = '<img style="float: right;"  src="logo.png"> </img>
+</div>
+
+<div id="data">
+'
+$table= @()
+$tableend = '</table>'
+$table +='<table id="TCC">
+<tr><th><u>Pick Today</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Pack NZ</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>MISC</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>DCE/IAF</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Pack Today</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Replenish</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Line</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>RMA</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Pick Bulk</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Consol</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Warehouse 2</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Containers</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Pack Bulk</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Warehouse 3</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Yard/Dispatch</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Absent/Leave</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Pick NZ</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Pack Backline</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Stock Control</u></th></tr>'
+$table +='<table id="TCC">
+<tr><th><u>Cleaning</u></th></tr>'
+$endhtml='</div>
+
+</html>'
+
+
+$count = 0
+$HTMLS > Display.html
+$heading >> Display.html
+$htmlc >> Display.html
+$table[0] >> Display.html
+do{
+ $Pick_Todayatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[1] >> Display.html
+do{
+ $Pack_NZatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[2] >> Display.html
+do{
+  $MISCatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[3] >> Display.html
+do{
+ $DCE_IAFatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[4] >> Display.html
+do{
+ $Pack_Todayatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[5] >> Display.html
+do{
+ $Replenishatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[6] >> Display.html
+do{
+ $Lineatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[7] >> Display.html
+do{
+  $RMAatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[8] >> Display.html
+do{
+ $Pick_Bulkatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[9] >> Display.html
+do{
+  $Consolatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[10] >> Display.html
+do{
+  $Warehouse_2atd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[11] >> Display.html
+do{
+ $Containersatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[12] >> Display.html
+do{
+ $Pack_Backlineatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[13] >> Display.html
+do{
+  $Warehouse_3atd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[14] >> Display.html
+do{
+  $Yard_Dispatchatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[15] >> Display.html
+do{
+ $Absent_Leaveatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[16] >> Display.html
+do{
+ $Pick_NZatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[17] >> Display.html
+do{
+  $Pack_Backlineatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[18] >> Display.html
+do{
+ $Stock_Controlatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$table[19] >> Display.html
+do{
+ $Cleaningatd[$Count] >> Display.html
+ $count = $count+1
+}until($count -eq $MAXALLOC )
+$count = 0
+
+$tableend >> Display.html
